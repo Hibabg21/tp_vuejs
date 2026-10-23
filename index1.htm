@@ -1,0 +1,26 @@
+<div id="app">
+  <!-- 5. Compteur -->
+  <p>{{ nombreFavoris }} livre(s) favori(s)</p>
+
+  <!-- 6. Filtre -->
+  <button @click="seulementFavoris = !seulementFavoris">
+    {{ seulementFavoris ? 'Afficher tous les livres' : 'Afficher uniquement les favoris' }}
+  </button>
+
+  <!-- 1. v-for + :key, 4. classe dynamique -->
+  <div class="book"
+       :class="{ favori: book.isFav }"
+       v-for="book in livresAffiches"
+       :key="book.id">
+
+    <h3>{{ book.title }}</h3>
+    <p>{{ book.author }} ({{ book.year }})</p>
+
+    <!-- 3. Badge avec v-if -->
+    <span class="badge-favori" v-if="book.isFav">Favori</span>
+
+    <!-- 2. Détails avec v-show -->
+    <button @click="basculerDetails(book.id)">Détails</button>
+    <p v-show="detailsOuverts.includes(book.id)">{{ book.genre }}</p>
+  </div>
+</div>
