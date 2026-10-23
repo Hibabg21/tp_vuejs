@@ -1,0 +1,38 @@
+<form @submit.prevent="ajouterLivre">
+  
+  <input type="text" v-model.trim="newBook.title" placeholder="Titre">
+  <input type="text" v-model.lazy="newBook.author" placeholder="Auteur">
+  <input type="number" v-model.number="newBook.year" placeholder="Année">
+
+  <select v-model="newBook.genre">
+    <option>Roman</option>
+    <option>Science-fiction</option>
+    <option>Policier</option>
+    <option>Essai</option>
+  </select>
+
+  <label>
+    <input type="checkbox" v-model="newBook.isFav"> Favori
+  </label>
+
+  
+  <input type="text"
+         v-model="nouveauMotCle"
+         placeholder="Mot-clé + Entrée"
+         @keydown.enter.prevent
+         @keyup.enter="ajouterMotCle">
+
+  <span class="chip" v-for="mot in newBook.keywords" :key="mot">
+    {{ mot }}
+    <button type="button" @click="retirerMotCle(mot)">×</button>
+  </span>
+
+  <button type="submit" :disabled="!formulaireValide">Ajouter</button>
+</form>
+
+<div class="book"
+     v-for="book in books" :key="book.id"
+     @click="toggleFavori(book)">
+  <!-- contenu existant de la carte -->
+  <button @click.stop="supprimerLivre(book)">Supprimer</button>
+</div>
